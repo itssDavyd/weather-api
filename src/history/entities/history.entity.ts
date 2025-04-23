@@ -15,6 +15,9 @@ export class History {
   url: string;
 
   @Column()
+  url_real: string;
+
+  @Column()
   param_search: string;
 
   @CreateDateColumn()

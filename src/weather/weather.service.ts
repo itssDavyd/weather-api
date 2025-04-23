@@ -19,6 +19,7 @@ export class WeatherService {
   async getWeather(locationOrLatLon: string) {
     const { apiKey, baseUrl } = getWheaterApiUrl(this.configService);
     const url = `${baseUrl}/${locationOrLatLon}?key=${apiKey}`;
+    const urlReal = `${this.configService.get<string>('API_URL')}/weathers/${locationOrLatLon}`;
     const response: AxiosResponse<WeatherData> = await firstValueFrom(
       this.httpService.get(url),
     );
@@ -32,6 +33,7 @@ export class WeatherService {
 
     // Insert history when the request is successful
     await this.historyService.create({
+      url_real: urlReal,
       url: url,
       param_search: locationOrLatLon,
     });
